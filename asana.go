@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/user"
 	"sort"
 	"strconv"
 )
@@ -176,9 +177,16 @@ type Conf struct {
 	Workspace int
 }
 
-// TODO: search ~/.asana.yml
 func load_config() Conf {
-	dat, err := ioutil.ReadFile(".asana.yml")
+	var dat []byte
+	var err error
+	current, _ := user.Current()
+	for _, file := range [...]string{".asana.yml", current.HomeDir + "/.asana.yml"} {
+		dat, err = ioutil.ReadFile(file)
+		if err == nil {
+			break
+		}
+	}
 	fatal(err)
 	conf := Conf{}
 	err2 := yaml.Unmarshal(dat, &conf)
