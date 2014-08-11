@@ -50,6 +50,14 @@ func main() {
 				commands.Task(c)
 			},
 		},
+		{
+			Name:      "comment",
+			ShortName: "cm",
+			Usage:     "Post comment",
+			Action: func(c *cli.Context) {
+				commands.Comment(c)
+			},
+		},
 	}
 
 	app.Run(os.Args)

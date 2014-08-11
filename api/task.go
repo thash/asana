@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"sort"
 	"strconv"
@@ -88,4 +89,27 @@ func FindTaskId(args cli.Args) string {
 		taskId := Tasks(url.Values{}, false)[0].Id
 		return strconv.Itoa(taskId)
 	}
+}
+
+func (s Story) String() string {
+	if s.Type == "comment" {
+		return fmt.Sprintf("%s\nby %s (%s)", s.Text, s.Created_by.Name, s.Created_at)
+	} else {
+		return fmt.Sprintf("%s (%s)", s.Text, s.Created_at)
+	}
+}
+
+type Commented_t struct {
+	Text string `json:"text"` // Define only required field.
+}
+
+func CommentTo(taskId string, comment string) string {
+
+	respBody := Post("/tasks/"+taskId+"/stories", `{"data":{"text":"`+comment+`"}}`)
+
+	var output map[string]Commented_t
+	err := json.Unmarshal(respBody, &output)
+	utils.Check(err)
+
+	return output["data"].Text
 }

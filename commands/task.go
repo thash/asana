@@ -27,18 +27,9 @@ func Task(c *cli.Context) {
 
 	if stories != nil {
 		fmt.Println("\n----------------------------------------\n")
-		for i, s := range stories {
-			if s.Type == "comment" {
-				if i != 0 {
-					fmt.Println("--------")
-				}
-				fmt.Printf("%s\nby %s (%s)", s.Text, s.Created_by.Name, s.Created_at)
-				if i != 0 {
-					fmt.Println("\n--------")
-				}
-			} else {
-				fmt.Printf("%s (%s)\n", s.Text, s.Created_at)
-			}
+		for _, s := range stories {
+			fmt.Printf("%s", s)
+			fmt.Println("\n--------")
 		}
 	}
 }

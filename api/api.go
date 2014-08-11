@@ -52,5 +52,9 @@ func fire(req *http.Request) []byte {
 
 	utils.Check(err)
 
+	if resp.StatusCode >= 300 {
+		println(resp.Status)
+	}
+
 	return body
 }
