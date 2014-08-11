@@ -71,6 +71,40 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
+			Name:      "config",
+			ShortName: "c",
+			Usage:     "Asana configuration. Your settings will be saved in ~/.asana.yml",
+			Action: func(c *cli.Context) {
+
+				_, err := ioutil.ReadFile(home() + "/.asana.yml")
+				if err != nil || load_config().Api_key == "" {
+					println("visit: http://app.asana.com/-/account_api")
+					print("paste your api_key: ")
+					var s string
+					fmt.Scanf("%s", &s)
+
+					f, _ := os.Create(home() + "/.asana.yml")
+					defer f.Close()
+					f.WriteString("api_key: " + s + "\n")
+				}
+
+				ws := me().Workspaces
+				index := 0
+
+				if len(ws) > 1 {
+					fmt.Println("\n" + strconv.Itoa(len(ws)) + " workspaces found.")
+					for i, w := range ws {
+						fmt.Printf("[%d] %16d %s\n", i, w.Id, w.Name)
+					}
+					index = endless_select(len(ws)-1, index)
+				}
+				api_key := load_config().Api_key
+				f, _ := os.Create(home() + "/.asana.yml")
+				f.WriteString("api_key: " + api_key + "\n")
+				f.WriteString("workspace: " + strconv.Itoa(ws[index].Id) + "\n")
+			},
+		},
+		{
 			Name:      "workspaces",
 			ShortName: "w",
 			Usage:     "get workspaces",
@@ -177,17 +211,29 @@ type Conf struct {
 	Workspace int
 }
 
+func home() string {
+	current, err := user.Current()
+	fatal(err)
+	return current.HomeDir
+}
+
+func endless_select(max int, index int) int {
+	print("\nChoose one out of them: ")
+	fmt.Scanf("%d", &index)
+	if index <= max {
+		return index
+	}
+	return endless_select(max, index)
+}
+
 func load_config() Conf {
 	var dat []byte
 	var err error
-	current, _ := user.Current()
-	for _, file := range [...]string{".asana.yml", current.HomeDir + "/.asana.yml"} {
-		dat, err = ioutil.ReadFile(file)
-		if err == nil {
-			break
-		}
+	dat, err = ioutil.ReadFile(home() + "/.asana.yml")
+	if err != nil {
+		fmt.Println("Config file isn't set.\n  ==> $ asana config")
+		os.Exit(1)
 	}
-	fatal(err)
 	conf := Conf{}
 	err2 := yaml.Unmarshal(dat, &conf)
 	fatal(err2)
