@@ -1,0 +1,91 @@
+package api
+
+import (
+	"encoding/json"
+	"net/url"
+	"sort"
+	"strconv"
+
+	"github.com/codegangsta/cli"
+
+	"../config"
+	"../utils"
+)
+
+type Task_t struct {
+	Id              int
+	Created_at      string
+	Modified_at     string
+	Name            string
+	Notes           string
+	Assignee        Base
+	Completed       bool
+	Assignee_status string
+	Completed_at    string
+	Due_on          string
+	Tags            []Base
+	Workspace       Base
+	Parent          string
+	Projects        []Base
+	Folloers        []Base
+}
+
+type Story struct {
+	Id         int
+	Text       string
+	Type       string
+	Created_at string
+	Created_by Base
+}
+
+type ByDue []Task_t
+
+func (a ByDue) Len() int           { return len(a) }
+func (a ByDue) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByDue) Less(i, j int) bool { return a[i].Due_on < a[j].Due_on }
+
+func Tasks(params url.Values, withCompleted bool) []Task_t {
+	params.Add("workspace", strconv.Itoa(config.Load().Workspace))
+	params.Add("assignee", "me")
+	params.Add("opt_fields", "name,completed,due_on")
+	var tasks map[string][]Task_t
+	err := json.Unmarshal(Get("/api/1.0/tasks", params), &tasks)
+	utils.Check(err)
+	var tasks_without_due, tasks_with_due []Task_t
+	for _, t := range tasks["data"] {
+		if !withCompleted && t.Completed {
+			continue
+		}
+		if t.Due_on == "" {
+			tasks_without_due = append(tasks_without_due, t)
+		} else {
+			tasks_with_due = append(tasks_with_due, t)
+		}
+	}
+	sort.Sort(ByDue(tasks_with_due))
+	return append(tasks_with_due, tasks_without_due...)
+}
+
+func Task(taskId string, verbose bool) (Task_t, []Story) {
+	var t map[string]Task_t
+	err := json.Unmarshal(Get("/api/1.0/tasks/"+taskId, nil), &t)
+	utils.Check(err)
+	if verbose {
+		var stories map[string][]Story
+		err2 := json.Unmarshal(Get("/api/1.0/tasks/"+taskId+"/stories", nil), &stories)
+		utils.Check(err2)
+		return t["data"], stories["data"]
+	} else {
+
+		return t["data"], nil
+	}
+}
+
+func FindTaskId(args cli.Args) string {
+	if len(args) > 0 {
+		return args.First()
+	} else {
+		taskId := Tasks(url.Values{}, false)[0].Id
+		return strconv.Itoa(taskId)
+	}
+}
