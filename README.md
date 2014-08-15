@@ -40,6 +40,8 @@ Usage
        tasks, ts            get tasks
        task, t              get a task
        comment, cm          Post comment
+       complete, done       Complete task
+       due                  set due date
        help, h              Shows a list of commands or help for one command
     
     GLOBAL OPTIONS:
