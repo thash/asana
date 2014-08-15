@@ -7,6 +7,16 @@ OverView
 Install
 =========================================
 
+Requirements: go
+
+### Mac OS X
+
+    $ brew tap memerelics/asana
+    $ brew install asana
+
+
+### Others
+
     $ go get github.com/memerelics/asana
 
 
