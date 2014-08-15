@@ -139,6 +139,8 @@ Currently, date string must be `YYYY-mm-dd` style. I'll improve it later.
 
 This command opens editor. Write comment, save and close.
 
+![](https://raw.githubusercontent.com/memerelics/asana/images/cmt.png)
+
 You can change editor by updating `$EDITOR` environment variable.
 
 
