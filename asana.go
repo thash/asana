@@ -59,11 +59,18 @@ func main() {
 			},
 		},
 		{
-			Name:      "done",
-			ShortName: "d",
+			Name:      "complete",
+			ShortName: "done",
 			Usage:     "Complete task",
 			Action: func(c *cli.Context) {
 				commands.Done(c)
+			},
+		},
+		{
+			Name:  "due",
+			Usage: "set due date",
+			Action: func(c *cli.Context) {
+				commands.DueOn(c)
 			},
 		},
 	}

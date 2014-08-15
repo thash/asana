@@ -116,6 +116,19 @@ Configurations are saved in `~/.asana.yml`.
     changed the due date to August 13 (2014-08-11T10:30:39.785Z)
 
 
+### Complete, set due on a task
+
+To complete task, use `asana complete <task_id>` or `asana done <task_id>`.
+
+    $ asana done 15384078744123
+
+To change(or newly set) due date, use `asana due <task_id> <due_date>`.
+
+    $ asana due 15384078744123 2014-08-21
+
+Currently, date string must be `YYYY-mm-dd` style. I'll improve it later.
+
+
 ### Comment
 
 `asana comment <task_id>` or `asana cm <task_id>` enable you to post new comment for the task.
@@ -133,6 +146,6 @@ TODO
 * Run faster
 * Select one task by index(`0, 1, 2...`) instead of long task_id (like `15384078744123`).
 * Create new task
-* Update(complete, set due date, edit title and notes etc) tasks
+* Edit task
 * Cancel Comment
-
+* Flexible due date (e.g. `asana due 12345 tomorrow`)
