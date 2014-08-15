@@ -3,7 +3,7 @@ package commands
 import (
 	"fmt"
 	"github.com/codegangsta/cli"
-	"../api"
+	"github.com/memerelics/asana/api"
 )
 
 func Workspaces(c *cli.Context) {
@@ -11,4 +11,3 @@ func Workspaces(c *cli.Context) {
 		fmt.Printf("%16d %s\n", w.Id, w.Name)
 	}
 }
-

@@ -9,8 +9,8 @@ import (
 
 	"github.com/codegangsta/cli"
 
-	"../config"
-	"../utils"
+	"github.com/memerelics/asana/config"
+	"github.com/memerelics/asana/utils"
 )
 
 type Task_t struct {

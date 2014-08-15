@@ -10,8 +10,8 @@ import (
 
 	"github.com/codegangsta/cli"
 
-	"../api"
-	"../utils"
+	"github.com/memerelics/asana/api"
+	"github.com/memerelics/asana/utils"
 )
 
 func Comment(c *cli.Context) {

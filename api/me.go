@@ -1,8 +1,9 @@
 package api
 
 import (
-	"../utils"
 	"encoding/json"
+
+	"github.com/memerelics/asana/utils"
 )
 
 type Me_t struct {

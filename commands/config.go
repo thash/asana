@@ -8,9 +8,9 @@ import (
 
 	"github.com/codegangsta/cli"
 
-	"../api"
-	"../config"
-	"../utils"
+	"github.com/memerelics/asana/api"
+	"github.com/memerelics/asana/config"
+	"github.com/memerelics/asana/utils"
 )
 
 func Config(c *cli.Context) {

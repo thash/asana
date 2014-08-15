@@ -5,7 +5,7 @@ import (
 
 	"github.com/codegangsta/cli"
 
-	"../api"
+	"github.com/memerelics/asana/api"
 )
 
 func Task(c *cli.Context) {

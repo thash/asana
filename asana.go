@@ -5,7 +5,7 @@ import (
 
 	"github.com/codegangsta/cli"
 
-	"./commands"
+	"github.com/memerelics/asana/commands"
 )
 
 func main() {

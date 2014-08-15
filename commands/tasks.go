@@ -6,9 +6,8 @@ import (
 
 	"github.com/codegangsta/cli"
 
-	"../api"
+	"github.com/memerelics/asana/api"
 )
-
 
 func Tasks(c *cli.Context) {
 	for _, t := range api.Tasks(url.Values{}, false) {
