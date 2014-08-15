@@ -58,6 +58,14 @@ func main() {
 				commands.Comment(c)
 			},
 		},
+		{
+			Name:      "done",
+			ShortName: "d",
+			Usage:     "Complete task",
+			Action: func(c *cli.Context) {
+				commands.Done(c)
+			},
+		},
 	}
 
 	app.Run(os.Args)

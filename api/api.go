@@ -41,6 +41,12 @@ func Post(path string, data string) []byte {
 	return fire(req)
 }
 
+func Put(path string, data string) []byte {
+	req, err := http.NewRequest("PUT", PostBase+path, strings.NewReader(data))
+	utils.Check(err)
+	return fire(req)
+}
+
 func fire(req *http.Request) []byte {
 	client := &http.Client{}
 

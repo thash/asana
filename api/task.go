@@ -113,3 +113,13 @@ func CommentTo(taskId string, comment string) string {
 
 	return output["data"].Text
 }
+
+func Update(taskId string, key string, value string) Task_t {
+	respBody := Put("/tasks/"+taskId, `{"data":{"`+key+`":"`+value+`"}}`)
+
+	var output map[string]Task_t
+	err := json.Unmarshal(respBody, &output)
+	utils.Check(err)
+
+	return output["data"]
+}
