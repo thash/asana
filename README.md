@@ -147,7 +147,6 @@ You can change editor by updating `$EDITOR` environment variable.
 TODO
 =========================================
 
-* Run faster
 * Select one task by index(`0, 1, 2...`) instead of long task_id (like `15384078744123`).
 * Create new task
 * Edit task
