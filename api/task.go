@@ -31,7 +31,7 @@ type Task_t struct {
 	Folloers        []Base
 }
 
-type Story struct {
+type Story_t struct {
 	Id         int
 	Text       string
 	Type       string
@@ -67,19 +67,31 @@ func Tasks(params url.Values, withCompleted bool) []Task_t {
 	return append(tasks_with_due, tasks_without_due...)
 }
 
-func Task(taskId string, verbose bool) (Task_t, []Story) {
-	var t map[string]Task_t
-	err := json.Unmarshal(Get("/api/1.0/tasks/"+taskId, nil), &t)
-	utils.Check(err)
-	if verbose {
-		var stories map[string][]Story
-		err2 := json.Unmarshal(Get("/api/1.0/tasks/"+taskId+"/stories", nil), &stories)
-		utils.Check(err2)
-		return t["data"], stories["data"]
-	} else {
+func Task(taskId string, verbose bool) (Task_t, []Story_t) {
+	var (
+		err     error
+		t       map[string]Task_t
+		ss      map[string][]Story_t
+		stories []Story_t
+	)
+	task_chan, stories_chan := make(chan []byte), make(chan []byte)
+	go func() {
+		task_chan <- Get("/api/1.0/tasks/"+taskId, nil)
+	}()
 
-		return t["data"], nil
+	stories = nil
+	if verbose {
+		go func() {
+			stories_chan <- Get("/api/1.0/tasks/"+taskId+"/stories", nil)
+		}()
+		err = json.Unmarshal(<-stories_chan, &ss)
+		utils.Check(err)
+		stories = ss["data"]
 	}
+
+	err = json.Unmarshal(<-task_chan, &t)
+	utils.Check(err)
+	return t["data"], stories
 }
 
 func FindTaskId(args cli.Args) string {
@@ -91,7 +103,7 @@ func FindTaskId(args cli.Args) string {
 	}
 }
 
-func (s Story) String() string {
+func (s Story_t) String() string {
 	if s.Type == "comment" {
 		return fmt.Sprintf("%s\nby %s (%s)", s.Text, s.Created_by.Name, s.Created_at)
 	} else {

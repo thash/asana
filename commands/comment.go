@@ -40,7 +40,7 @@ func Comment(c *cli.Context) {
 	fmt.Println(commented)
 }
 
-func template(f *os.File, task api.Task_t, stories []api.Story) error {
+func template(f *os.File, task api.Task_t, stories []api.Story_t) error {
 	var err error
 	_, err = f.WriteString("\n\n\n")
 	_, err = f.WriteString("# =================================== \n")
