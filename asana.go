@@ -35,6 +35,10 @@ func main() {
 			Name:      "tasks",
 			ShortName: "ts",
 			Usage:     "get tasks",
+			Flags: []cli.Flag{
+				cli.BoolFlag{Name: "no-cache, n", Usage: "without cache"},
+				cli.BoolFlag{Name: "refresh, r", Usage: "update cache"},
+			},
 			Action: func(c *cli.Context) {
 				commands.Tasks(c)
 			},
