@@ -9,7 +9,7 @@ import (
 )
 
 func Task(c *cli.Context) {
-	t, stories := api.Task(api.FindTaskId(c.Args()), c.Bool("verbose"))
+	t, stories := api.Task(api.FindTaskId(c.Args().First(), true), c.Bool("verbose"))
 
 	fmt.Printf("[ %s ] %s\n", t.Due_on, t.Name)
 

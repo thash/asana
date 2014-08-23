@@ -9,7 +9,6 @@ import (
 )
 
 func Done(c *cli.Context) {
-	taskId := c.Args().First()
-	task := api.Update(taskId, "completed", "true")
+	task := api.Update(api.FindTaskId(c.Args().First(), false), "completed", "true")
 	fmt.Println("DONE! : " + task.Name)
 }

@@ -3,11 +3,12 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"net/url"
+	"regexp"
 	"sort"
 	"strconv"
-
-	"github.com/codegangsta/cli"
 
 	"github.com/memerelics/asana/config"
 	"github.com/memerelics/asana/utils"
@@ -94,13 +95,33 @@ func Task(taskId string, verbose bool) (Task_t, []Story_t) {
 	return t["data"], stories
 }
 
-func FindTaskId(args cli.Args) string {
-	if len(args) > 0 {
-		return args.First()
-	} else {
-		taskId := Tasks(url.Values{}, false)[0].Id
-		return strconv.Itoa(taskId)
+func FindTaskId(index string, autoFirst bool) string {
+	if index == "" {
+		if autoFirst == false {
+			log.Fatal("fatal: Task index is required.")
+		} else {
+			index = "0"
+		}
 	}
+
+	var id string
+	txt, err := ioutil.ReadFile(utils.CacheFile())
+
+	if err != nil { // cache file not exist
+		ind, parseErr := strconv.Atoi(index)
+		utils.Check(parseErr)
+		task := Tasks(url.Values{}, false)[ind]
+		id = strconv.Itoa(task.Id)
+	} else {
+		lines := regexp.MustCompile("\n").Split(string(txt), -1)
+		for i, line := range lines {
+			if index == strconv.Itoa(i) {
+				line = regexp.MustCompile("^[0-9]*:").ReplaceAllString(line, "") // remove index
+				id = regexp.MustCompile("^[0-9]*").FindString(line)
+			}
+		}
+	}
+	return id
 }
 
 func (s Story_t) String() string {

@@ -7,7 +7,6 @@ import (
 	"os"
 	"regexp"
 	"strconv"
-	"time"
 
 	"github.com/codegangsta/cli"
 
@@ -17,20 +16,17 @@ import (
 
 const (
 	CacheDuration = "5m"
-	CacheFileName = ".asana.cache"
 )
 
 func Tasks(c *cli.Context) {
 	if c.Bool("no-cache") {
 		fromAPI(false)
 	} else {
-		cacheFile := utils.Home() + "/" + CacheFileName
-		if isOld(cacheFile) || c.Bool("refresh") {
+		if utils.Older(CacheDuration, utils.CacheFile()) || c.Bool("refresh") {
 			fromAPI(true)
 		} else {
-			txt, err := ioutil.ReadFile(cacheFile)
+			txt, err := ioutil.ReadFile(utils.CacheFile())
 			if err == nil {
-				utils.Check(err)
 				lines := regexp.MustCompile("\n").Split(string(txt), -1)
 				for _, line := range lines {
 					format(line)
@@ -53,7 +49,7 @@ func fromAPI(saveCache bool) {
 }
 
 func cache(tasks []api.Task_t) {
-	f, _ := os.Create(utils.Home() + "/" + CacheFileName)
+	f, _ := os.Create(utils.CacheFile())
 	defer f.Close()
 	for i, t := range tasks {
 		f.WriteString(strconv.Itoa(i) + ":")
@@ -61,12 +57,6 @@ func cache(tasks []api.Task_t) {
 		f.WriteString(t.Due_on + ":")
 		f.WriteString(t.Name + "\n")
 	}
-}
-
-func isOld(cacheFile string) bool {
-	st, _ := os.Stat(cacheFile)
-	duration, _ := time.ParseDuration(CacheDuration)
-	return time.Now().After(st.ModTime().Add(duration))
 }
 
 func format(line string) {

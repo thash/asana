@@ -15,7 +15,7 @@ import (
 )
 
 func Comment(c *cli.Context) {
-	taskId := api.FindTaskId(c.Args())
+	taskId := api.FindTaskId(c.Args().First(), false)
 	task, stories := api.Task(taskId, true)
 
 	tmpFile := os.TempDir() + "/asana_comment.txt"

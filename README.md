@@ -32,7 +32,7 @@ Usage
        asana [global options] command [command options] [arguments...]
     
     VERSION:
-       0.0.2
+       0.1.0
     
     COMMANDS:
        config, c            Asana configuration. Your settings will be saved in ~/.asana.yml
@@ -82,16 +82,16 @@ Configurations are saved in `~/.asana.yml`.
 
     $ asana ts
 
-    15384078744123 [ 2014-08-13 ] Write README.
-    12869233163655 [ 2014-08-18 ] Buy gift for coworkers.
-    14445736269211 [ 2014-08-29 ] Read "Unweaving the Rainbow".
-    15232434010512 [            ] haircut
+    0 [ 2014-08-13 ] Write README.
+    1 [ 2014-08-18 ] Buy gift for coworkers.
+    2 [ 2014-08-29 ] Read "Unweaving the Rainbow".
+    3 [            ] haircut
 
-`asana task <task_id>` or `asana t <tasi_id>` shows the task in detail. When you run it without `task_id`, top of the tasks list will be used.
+`asana task <index>` or `asana t <index>` shows the task in detail. When you run it without index, top of the tasks list will be used.
 
 `-v` option adds comments and modification histories to the output.
 
-    $ asana t -v 15384078744123
+    $ asana t -v 0
 
     [ 2014-08-13 ] Write README.
     --------
@@ -120,22 +120,22 @@ Configurations are saved in `~/.asana.yml`.
 
 ### Complete, set due on a task
 
-To complete task, use `asana complete <task_id>` or `asana done <task_id>`.
+To complete task, use `asana complete <index>` or `asana done <index>`.
 
-    $ asana done 15384078744123
+    $ asana done 12
 
-To change(or newly set) due date, use `asana due <task_id> <due_date>`.
+To change(or newly set) due date, use `asana due <index> <due_date>`.
 
-    $ asana due 15384078744123 2014-08-21
+    $ asana due 5 2014-08-21
 
 Currently, date string must be `YYYY-mm-dd` style. I'll improve it later.
 
 
 ### Comment
 
-`asana comment <task_id>` or `asana cm <task_id>` enable you to post new comment for the task.
+`asana comment <index>` or `asana cm <index>` enable you to post new comment for the task.
 
-    $ asana cm 15384078744123
+    $ asana cm 2
 
 This command opens editor. Write comment, save and close.
 
@@ -147,8 +147,8 @@ You can change editor by updating `$EDITOR` environment variable.
 TODO
 =========================================
 
-* Select one task by index(`0, 1, 2...`) instead of long task_id (like `15384078744123`).
 * Create new task
 * Edit task
 * Cancel Comment
 * Flexible due date (e.g. `asana due 12345 tomorrow`)
+* Add test
