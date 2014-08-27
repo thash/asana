@@ -9,7 +9,7 @@ import (
 )
 
 func DueOn(c *cli.Context) {
-	taskId := c.Args().First()
+	taskId := api.FindTaskId(c.Args().First(), true)
 	task := api.Update(taskId, "due_on", toDate(c.Args()[1]))
 	fmt.Println("set due on [ " + task.Due_on + " ] :" + task.Name)
 }
