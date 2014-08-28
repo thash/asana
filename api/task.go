@@ -126,9 +126,9 @@ func FindTaskId(index string, autoFirst bool) string {
 
 func (s Story_t) String() string {
 	if s.Type == "comment" {
-		return fmt.Sprintf("%s\nby %s (%s)", s.Text, s.Created_by.Name, s.Created_at)
+		return fmt.Sprintf("> %s\nby %s (%s)", s.Text, s.Created_by.Name, s.Created_at)
 	} else {
-		return fmt.Sprintf("%s (%s)", s.Text, s.Created_at)
+		return fmt.Sprintf("* %s (%s)", s.Text, s.Created_at)
 	}
 }
 
