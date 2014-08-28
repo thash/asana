@@ -149,6 +149,5 @@ TODO
 
 * Create new task
 * Edit task
-* Cancel Comment
 * Flexible due date (e.g. `asana due 12345 tomorrow`)
 * Add test

@@ -34,10 +34,14 @@ func Comment(c *cli.Context) {
 
 	utils.Check(err)
 
-	commented := api.CommentTo(taskId, trim(string(txt)))
-
-	fmt.Println("Commented on Task: \"" + task.Name + "\"\n")
-	fmt.Println(commented)
+	postComment := trim(string(txt))
+	if postComment != "" {
+		commented := api.CommentTo(taskId, postComment)
+		fmt.Println("Commented on Task: \"" + task.Name + "\"\n")
+		fmt.Println(commented)
+	} else {
+		fmt.Println("Aborting comment due to empty content.")
+	}
 }
 
 func template(f *os.File, task api.Task_t, stories []api.Story_t) error {
