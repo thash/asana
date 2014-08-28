@@ -60,10 +60,12 @@ func cache(tasks []api.Task_t) {
 }
 
 func format(line string) {
+	dateRegexp := "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+
 	index := regexp.MustCompile("^[0-9]*").FindString(line)
 	line = regexp.MustCompile("^[0-9]*:").ReplaceAllString(line, "") // remove index
 	line = regexp.MustCompile("^[0-9]*:").ReplaceAllString(line, "") // remove task_id
-	date := regexp.MustCompile("^[0-9]{4}-[0-9]{2}-[0-9]{2}").FindString(line)
-	line = regexp.MustCompile("^[0-9]{4}-[0-9]{2}-[0-9]{2}:").ReplaceAllString(line, "") // remove date
+	date := regexp.MustCompile("^" + dateRegexp).FindString(line)
+	line = regexp.MustCompile("^("+dateRegexp+")?:").ReplaceAllString(line, "") // remove date
 	fmt.Printf("%2s [ %10s ] %s\n", index, date, line)
 }
