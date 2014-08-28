@@ -24,15 +24,17 @@ type Base struct {
 }
 
 func Get(path string, params url.Values) []byte {
-	var getURL string
-	if params == nil || params.Encode() == "" {
-		getURL = GetBase + path
-	} else {
-		getURL = GetBase + path + "?" + params.Encode()
-	}
-	req, err := http.NewRequest("GET", getURL, nil)
+	req, err := http.NewRequest("GET", getURL(path, params), nil)
 	utils.Check(err)
 	return fire(req)
+}
+
+func getURL(path string, params url.Values) string {
+	if params == nil || params.Encode() == "" {
+		return GetBase + path
+	} else {
+		return GetBase + path + "?" + params.Encode()
+	}
 }
 
 func Post(path string, data string) []byte {

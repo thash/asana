@@ -14,7 +14,12 @@ func main() {
 	app.Version = "0.1.1"
 	app.Usage = "asana cui client"
 
-	app.Commands = []cli.Command{
+	app.Commands = defs()
+	app.Run(os.Args)
+}
+
+func defs() []cli.Command {
+	return []cli.Command{
 		{
 			Name:      "config",
 			ShortName: "c",
@@ -63,8 +68,7 @@ func main() {
 			},
 		},
 		{
-			Name:      "complete",
-			ShortName: "done",
+			Name:      "done",
 			Usage:     "Complete task",
 			Action: func(c *cli.Context) {
 				commands.Done(c)
@@ -78,6 +82,4 @@ func main() {
 			},
 		},
 	}
-
-	app.Run(os.Args)
 }
