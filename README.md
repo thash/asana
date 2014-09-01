@@ -34,7 +34,7 @@ Usage
        asana [global options] command [command options] [arguments...]
 
     VERSION:
-       0.1.1
+       0.1.2
 
     COMMANDS:
        config, c            Asana configuration. Your settings will be saved in ~/.asana.yml
