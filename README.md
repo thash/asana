@@ -29,13 +29,13 @@ Usage
 
     NAME:
        asana - asana cui client
-    
+
     USAGE:
        asana [global options] command [command options] [arguments...]
-    
+
     VERSION:
        0.1.1
-    
+
     COMMANDS:
        config, c            Asana configuration. Your settings will be saved in ~/.asana.yml
        workspaces, w        get workspaces
@@ -45,7 +45,7 @@ Usage
        complete, done       Complete task
        due                  set due date
        help, h              Shows a list of commands or help for one command
-    
+
     GLOBAL OPTIONS:
        --help, -h           show help
        --version, -v        print the version
@@ -65,7 +65,7 @@ When you paste valid api key, your workspaces will be displayed.
     2 workspaces found.
     [0]    4444444444444 My Project
     [1]     999999999999 Work
-    
+
     Choose one out of them: _
 
 Select one workspace.
@@ -73,7 +73,7 @@ Select one workspace.
 Configurations are saved in `~/.asana.yml`.
 
     $ cat ~/.asana.yml
-    
+
     api_key: 1xxxxxxx.xxxxxxxxxxxxxxxxxxxxxug
     workspace: 4444444444444
 
@@ -130,7 +130,9 @@ To change(or newly set) due date, use `asana due <index> <due_date>`.
 
     $ asana due 5 2014-08-21
 
-Currently, date string must be `YYYY-mm-dd` style. I'll improve it later.
+Or, `today` or `tomorrow`.
+
+    $ asana due 5 today
 
 
 ### Comment
@@ -151,4 +153,3 @@ TODO
 
 * Create new task
 * Edit task
-* Flexible due date (e.g. `asana due 12345 tomorrow`)
