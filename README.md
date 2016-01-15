@@ -61,7 +61,7 @@ Usage
 
     paste your Personal Access Token: _ <Copy Token from URL above and paste it.>
 
-![](https://raw.githubusercontent.com/memerelics/asana/images/key.png)
+![](https://raw.githubusercontent.com/memerelics/asana/images/token.png)
 
 When you paste valid token, your workspaces will be displayed.
 
