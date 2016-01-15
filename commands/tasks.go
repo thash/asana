@@ -29,6 +29,7 @@ func Tasks(c *cli.Context) {
 			if err == nil {
 				lines := regexp.MustCompile("\n").Split(string(txt), -1)
 				for _, line := range lines {
+					if len(line) < 1 { continue; }
 					format(line)
 				}
 			} else {
