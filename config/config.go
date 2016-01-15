@@ -10,7 +10,7 @@ import (
 )
 
 type Conf struct {
-	Api_key   string
+	Personal_access_token string
 	Workspace int
 }
 

@@ -53,7 +53,7 @@ func fire(req *http.Request) []byte {
 	client := &http.Client{}
 
 	req.Header.Set("User-Agent", UserAgent)
-	req.SetBasicAuth(config.Load().Api_key, "")
+	req.Header.Set("Authorization", "Bearer " + config.Load().Personal_access_token)
 
 	resp, err := client.Do(req)
 	body, err := ioutil.ReadAll(resp.Body)

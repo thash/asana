@@ -15,15 +15,17 @@ import (
 
 func Config(c *cli.Context) {
 	_, err := ioutil.ReadFile(utils.Home() + "/.asana.yml")
-	if err != nil || config.Load().Api_key == "" {
+	if err != nil || config.Load().Personal_access_token == "" {
 		println("visit: http://app.asana.com/-/account_api")
-		print("paste your api_key: ")
+		println("  Settings > Apps > Personal Access Tokens")
+		println("  + Create New Personal Access Token")
+		print("\npaste your Personal Access Token: ")
 		var s string
 		fmt.Scanf("%s", &s)
 
 		f, _ := os.Create(utils.Home() + "/.asana.yml")
 		defer f.Close()
-		f.WriteString("api_key: " + s + "\n")
+		f.WriteString("personal_access_token: " + s + "\n")
 	}
 
 	ws := api.Me().Workspaces
@@ -36,8 +38,8 @@ func Config(c *cli.Context) {
 		}
 		index = utils.EndlessSelect(len(ws)-1, index)
 	}
-	apiKey := config.Load().Api_key
+	token := config.Load().Personal_access_token
 	f, _ := os.Create(utils.Home() + "/.asana.yml")
-	f.WriteString("api_key: " + apiKey + "\n")
+	f.WriteString("personal_access_token: " + token + "\n")
 	f.WriteString("workspace: " + strconv.Itoa(ws[index].Id) + "\n")
 }

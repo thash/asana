@@ -56,11 +56,14 @@ Usage
 
     $ asana config
     visit: http://app.asana.com/-/account_api
-    paste your api_key: _ <Copy API KEY from URL above and paste it.>
+      Settings > Apps > Personal Access Tokens
+      + Create New Personal Access Token
+
+    paste your Personal Access Token: _ <Copy Token from URL above and paste it.>
 
 ![](https://raw.githubusercontent.com/memerelics/asana/images/key.png)
 
-When you paste valid api key, your workspaces will be displayed.
+When you paste valid token, your workspaces will be displayed.
 
     2 workspaces found.
     [0]    4444444444444 My Project
@@ -68,13 +71,11 @@ When you paste valid api key, your workspaces will be displayed.
 
     Choose one out of them: _
 
-Select one workspace.
-
-Configurations are saved in `~/.asana.yml`.
+Select one workspace. Configurations are saved in `~/.asana.yml`.
 
     $ cat ~/.asana.yml
 
-    api_key: 1xxxxxxx.xxxxxxxxxxxxxxxxxxxxxug
+    personal_access_token: 0/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     workspace: 4444444444444
 
 
