@@ -28,13 +28,13 @@ Usage
     $ asana help
 
     NAME:
-       asana - asana cui client
+       asana - asana cui client ( https://github.com/memerelics/asana )
 
     USAGE:
        asana [global options] command [command options] [arguments...]
 
     VERSION:
-       0.1.2
+       0.2.0
 
     COMMANDS:
        config, c            Asana configuration. Your settings will be saved in ~/.asana.yml
@@ -42,8 +42,9 @@ Usage
        tasks, ts            get tasks
        task, t              get a task
        comment, cm          Post comment
-       complete, done       Complete task
+       done                 Complete task
        due                  set due date
+       browse, b            open a task in the web browser
        help, h              Shows a list of commands or help for one command
 
     GLOBAL OPTIONS:
@@ -61,7 +62,7 @@ Usage
 
     paste your Personal Access Token: _ <Copy Token from URL above and paste it.>
 
-![](https://raw.githubusercontent.com/memerelics/asana/images/key.png)
+![](https://raw.githubusercontent.com/memerelics/asana/images/token.png)
 
 When you paste valid token, your workspaces will be displayed.
 
@@ -160,5 +161,4 @@ You can change editor by updating `$EDITOR` environment variable.
 TODO
 =========================================
 
-* Create new task
-* Edit task
+See [Issues](https://github.com/memerelics/asana/issues)
