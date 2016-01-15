@@ -81,5 +81,13 @@ func defs() []cli.Command {
 				commands.DueOn(c)
 			},
 		},
+		{
+			Name:  "browse",
+			ShortName: "b",
+			Usage: "open a task in the web browser",
+			Action: func(c *cli.Context) {
+				commands.Browse(c)
+			},
+		},
 	}
 }

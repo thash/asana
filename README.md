@@ -149,6 +149,14 @@ This command opens editor. Write comment, save and close.
 You can change editor by updating `$EDITOR` environment variable.
 
 
+### Open a task in the browser
+
+`asana browse <index>` or `asana b <index>` will open task in browser.
+
+    $ asana browse 1
+    // => open browser
+
+
 TODO
 =========================================
 

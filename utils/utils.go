@@ -1,10 +1,13 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"os/user"
+	"runtime"
 	"time"
 )
 
@@ -45,4 +48,39 @@ func Older(duration string, cacheFile string) bool {
 
 func CacheFile() string {
 	return Home() + "/" + CacheFileName
+}
+
+// base: github.com/github/hub
+func BrowserLauncher() (string, error) {
+	browser := os.Getenv("BROWSER")
+	if browser == "" {
+		browser = searchBrowserLauncher(runtime.GOOS)
+	}
+
+	if browser == "" {
+		return "", errors.New("Please set $BROWSER to a web launcher")
+	}
+
+	return browser, nil
+}
+
+func searchBrowserLauncher(goos string) (browser string) {
+	switch goos {
+	case "darwin":
+		browser = "open"
+	case "windows":
+		browser = "cmd /c start"
+	default:
+		candidates := []string{"xdg-open", "cygstart", "x-www-browser", "firefox",
+		"opera", "mozilla", "netscape"}
+		for _, b := range candidates {
+			path, err := exec.LookPath(b)
+			if err == nil {
+				browser = path
+				break
+			}
+		}
+	}
+
+	return browser
 }
