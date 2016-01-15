@@ -12,7 +12,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "asana"
 	app.Version = "0.1.2"
-	app.Usage = "asana cui client"
+	app.Usage = "asana cui client ( https://github.com/memerelics/asana )"
 
 	app.Commands = defs()
 	app.Run(os.Args)
