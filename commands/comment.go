@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 
 	"github.com/memerelics/asana/api"
 	"github.com/memerelics/asana/utils"

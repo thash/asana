@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 
 	"github.com/memerelics/asana/api"
 )
