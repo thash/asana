@@ -17,7 +17,7 @@ func Config(c *cli.Context) {
 	_, err := ioutil.ReadFile(utils.Home() + "/.asana.yml")
 	if err != nil || config.Load().Personal_access_token == "" {
 		println("visit: http://app.asana.com/-/account_api")
-		println("  Settings > Apps > Personal Access Tokens")
+		println("  Settings > Apps > Manage Developer Apps > Personal Access Tokens")
 		println("  + Create New Personal Access Token")
 		print("\npaste your Personal Access Token: ")
 		var s string

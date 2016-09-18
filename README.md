@@ -57,7 +57,7 @@ Usage
 
     $ asana config
     visit: http://app.asana.com/-/account_api
-      Settings > Apps > Personal Access Tokens
+      Settings > Apps > Manage Developer Apps > Personal Access Tokens
       + Create New Personal Access Token
 
     paste your Personal Access Token: _ <Copy Token from URL above and paste it.>
