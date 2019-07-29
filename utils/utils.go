@@ -23,7 +23,7 @@ func Home() string {
 
 func Check(err error) {
 	if err != nil {
-		log.Fatal("fatal: %v\n", err)
+		log.Fatalf("fatal: %v\n", err)
 	}
 }
 
@@ -72,7 +72,7 @@ func searchBrowserLauncher(goos string) (browser string) {
 		browser = "cmd /c start"
 	default:
 		candidates := []string{"xdg-open", "cygstart", "x-www-browser", "firefox",
-		"opera", "mozilla", "netscape"}
+			"opera", "mozilla", "netscape"}
 		for _, b := range candidates {
 			path, err := exec.LookPath(b)
 			if err == nil {

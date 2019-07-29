@@ -27,7 +27,7 @@ type Task_t struct {
 	Due_on          string
 	Tags            []Base
 	Workspace       Base
-	Parent          string
+	Parent          Base
 	Projects        []Base
 	Folloers        []Base
 }
