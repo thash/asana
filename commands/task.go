@@ -18,7 +18,7 @@ func Task(c *cli.Context) {
 	fmt.Printf("\n%s\n", t.Notes)
 
 	if stories != nil {
-		fmt.Println("\n----------------------------------------\n")
+		fmt.Printf("\n----------------------------------------\n")
 		for _, s := range stories {
 			fmt.Printf("%s\n", s)
 		}
