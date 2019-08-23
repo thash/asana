@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/memerelics/asana.svg?branch=master)](https://travis-ci.org/memerelics/asana)
+[![Build Status](https://travis-ci.org/thash/asana.svg?branch=master)](https://travis-ci.org/thash/asana)
 
 OverView
 =========================================
@@ -13,13 +13,13 @@ Requirements: go
 
 ### Mac OS X
 
-    $ brew tap memerelics/asana
+    $ brew tap thash/asana
     $ brew install asana
 
 
 ### Others
 
-    $ go get github.com/memerelics/asana
+    $ go get github.com/thash/asana
 
 
 Usage
@@ -28,7 +28,7 @@ Usage
     $ asana help
 
     NAME:
-       asana - asana cui client ( https://github.com/memerelics/asana )
+       asana - asana cui client ( https://github.com/thash/asana )
 
     USAGE:
        asana [global options] command [command options] [arguments...]
@@ -62,7 +62,7 @@ Usage
 
     paste your Personal Access Token: _ <Copy Token from URL above and paste it.>
 
-![](https://raw.githubusercontent.com/memerelics/asana/images/token.png)
+![](https://raw.githubusercontent.com/thash/asana/images/token.png)
 
 When you paste valid token, your workspaces will be displayed.
 
@@ -145,7 +145,7 @@ Or, `today` or `tomorrow`.
 
 This command opens editor. Write comment, save and close.
 
-![](https://raw.githubusercontent.com/memerelics/asana/images/cmt.png)
+![](https://raw.githubusercontent.com/thash/asana/images/cmt.png)
 
 You can change editor by updating `$EDITOR` environment variable.
 
@@ -161,4 +161,4 @@ You can change editor by updating `$EDITOR` environment variable.
 TODO
 =========================================
 
-See [Issues](https://github.com/memerelics/asana/issues)
+See [Issues](https://github.com/thash/asana/issues)

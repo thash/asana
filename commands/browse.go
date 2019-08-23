@@ -6,9 +6,9 @@ import (
 
     "github.com/codegangsta/cli"
 
-	"github.com/memerelics/asana/api"
-	"github.com/memerelics/asana/config"
-	"github.com/memerelics/asana/utils"
+	"github.com/thash/asana/api"
+	"github.com/thash/asana/config"
+	"github.com/thash/asana/utils"
 )
 
 func Browse(c *cli.Context) {

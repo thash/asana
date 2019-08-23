@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/memerelics/asana/config"
-	"github.com/memerelics/asana/utils"
+	"github.com/thash/asana/config"
+	"github.com/thash/asana/utils"
 )
 
 const (

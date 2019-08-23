@@ -7,7 +7,7 @@ Checkout the code then from within the directory
 ```
 export GOPATH=`pwd`
 go get github.com/codegangsta/cli
-go get github.com/memerelics/asana/commands
+go get github.com/thash/asana/commands
 go  build
 ```
 
