@@ -11,7 +11,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "asana"
-	app.Version = "0.2.0"
+	app.Version = "0.2.1"
 	app.Usage = "asana cui client ( https://github.com/thash/asana )"
 
 	app.Commands = defs()
