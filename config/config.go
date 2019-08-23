@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/memerelics/asana/utils"
+	"github.com/thash/asana/utils"
 
 	"fmt"
 	"gopkg.in/yaml.v1"
