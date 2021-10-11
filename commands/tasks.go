@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli/v2"
 
 	"github.com/thash/asana/api"
 	"github.com/thash/asana/utils"
@@ -29,7 +29,9 @@ func Tasks(c *cli.Context) {
 			if err == nil {
 				lines := regexp.MustCompile("\n").Split(string(txt), -1)
 				for _, line := range lines {
-					if len(line) < 1 { continue; }
+					if len(line) < 1 {
+						continue
+					}
 					format(line)
 				}
 			} else {
