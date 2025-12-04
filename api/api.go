@@ -19,8 +19,9 @@ const (
 )
 
 type Base struct {
-	Id   int
-	Name string
+	Id   int    `json:"id"`
+	Gid  string `json:"gid"`
+	Name string `json:"name"`
 }
 
 func Get(path string, params url.Values) []byte {
