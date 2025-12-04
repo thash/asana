@@ -21,6 +21,16 @@ type CustomField_t struct {
 	Type         string `json:"type"`
 }
 
+type Attachment_t struct {
+	Gid          string `json:"gid"`
+	Name         string `json:"name"`
+	CreatedAt    string `json:"created_at"`
+	DownloadUrl  string `json:"download_url"`
+	ViewUrl      string `json:"view_url"`
+	PermanentUrl string `json:"permanent_url"`
+	Host         string `json:"host"`
+}
+
 type Task_t struct {
 	Id              int             `json:"id"`
 	Gid             string          `json:"gid"`
@@ -110,6 +120,20 @@ func Task(taskId string, verbose bool) (Task_t, []Story_t) {
 	err = json.Unmarshal(<-task_chan, &t)
 	utils.Check(err)
 	return t["data"], stories
+}
+
+func Attachments(taskId string) []Attachment_t {
+	var attachments map[string][]Attachment_t
+	err := json.Unmarshal(Get("/api/1.0/tasks/"+taskId+"/attachments", nil), &attachments)
+	utils.Check(err)
+	return attachments["data"]
+}
+
+func Attachment(attachmentId string) Attachment_t {
+	var attachment map[string]Attachment_t
+	err := json.Unmarshal(Get("/api/1.0/attachments/"+attachmentId, nil), &attachment)
+	utils.Check(err)
+	return attachment["data"]
 }
 
 func FindTaskId(index string, autoFirst bool) string {
