@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/urfave/cli/v2"
@@ -10,6 +11,22 @@ import (
 
 func Task(c *cli.Context) {
 	t, stories := api.Task(api.FindTaskId(c.Args().First(), true), c.Bool("verbose"))
+
+	if c.Bool("json") {
+		output := map[string]interface{}{
+			"task": t,
+		}
+		if stories != nil {
+			output["stories"] = stories
+		}
+		jsonData, err := json.MarshalIndent(output, "", "  ")
+		if err != nil {
+			fmt.Printf("Error marshalling JSON: %v\n", err)
+			return
+		}
+		fmt.Println(string(jsonData))
+		return
+	}
 
 	fmt.Printf("[ %s ] %s\n", t.Due_on, t.Name)
 

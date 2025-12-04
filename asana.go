@@ -56,7 +56,8 @@ func defs() []*cli.Command {
 			Aliases: []string{"t"},
 			Usage:   "get a task",
 			Flags: []cli.Flag{
-				&cli.BoolFlag{Name: "verbose, v", Usage: "verbose output"},
+				&cli.BoolFlag{Name: "verbose", Aliases: []string{"v"}, Usage: "verbose output"},
+				&cli.BoolFlag{Name: "json", Aliases: []string{"j"}, Usage: "output as JSON"},
 			},
 			Action: func(c *cli.Context) error {
 				commands.Task(c)
