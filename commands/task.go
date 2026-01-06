@@ -10,7 +10,9 @@ import (
 )
 
 func Task(c *cli.Context) {
-	t, stories := api.Task(api.FindTaskId(c.Args().First(), true), c.Bool("verbose"))
+	taskId := api.FindTaskId(c.Args().First(), true)
+	t, stories := api.Task(taskId, c.Bool("verbose"))
+	attachments := api.Attachments(taskId)
 
 	if c.Bool("json") {
 		output := map[string]interface{}{
@@ -18,6 +20,9 @@ func Task(c *cli.Context) {
 		}
 		if stories != nil {
 			output["stories"] = stories
+		}
+		if len(attachments) > 0 {
+			output["attachments"] = attachments
 		}
 		jsonData, err := json.MarshalIndent(output, "", "  ")
 		if err != nil {
@@ -32,6 +37,7 @@ func Task(c *cli.Context) {
 
 	showTags(t.Tags)
 	showCustomFields(t.CustomFields)
+	showAttachments(attachments)
 
 	fmt.Printf("\n%s\n", t.Notes)
 
@@ -63,6 +69,15 @@ func showCustomFields(fields []api.CustomField_t) {
 			if field.DisplayValue != "" {
 				fmt.Printf("    %s: %s\n", field.Name, field.DisplayValue)
 			}
+		}
+	}
+}
+
+func showAttachments(attachments []api.Attachment_t) {
+	if len(attachments) > 0 {
+		fmt.Printf("\n  Attachments (%d):\n", len(attachments))
+		for i, att := range attachments {
+			fmt.Printf("    [%d] %s (GID: %s)\n", i, att.Name, att.Gid)
 		}
 	}
 }

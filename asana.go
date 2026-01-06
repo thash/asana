@@ -98,5 +98,17 @@ func defs() []*cli.Command {
 				return nil
 			},
 		},
+		{
+			Name:    "download",
+			Aliases: []string{"dl"},
+			Usage:   "download attachment from a task",
+			Flags: []cli.Flag{
+				&cli.StringFlag{Name: "output", Aliases: []string{"o"}, Usage: "output file path"},
+			},
+			Action: func(c *cli.Context) error {
+				commands.Download(c)
+				return nil
+			},
+		},
 	}
 }
