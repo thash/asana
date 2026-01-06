@@ -15,21 +15,22 @@ import (
 )
 
 type Task_t struct {
-	Id              int
-	Created_at      string
-	Modified_at     string
-	Name            string
-	Notes           string
-	Assignee        Base
-	Completed       bool
-	Assignee_status string
-	Completed_at    string
-	Due_on          string
-	Tags            []Base
-	Workspace       Base
-	Parent          Base
-	Projects        []Base
-	Folloers        []Base
+	Id              int    `json:"id"`
+	Gid             string `json:"gid"`
+	Created_at      string `json:"created_at"`
+	Modified_at     string `json:"modified_at"`
+	Name            string `json:"name"`
+	Notes           string `json:"notes"`
+	Assignee        Base   `json:"assignee"`
+	Completed       bool   `json:"completed"`
+	Assignee_status string `json:"assignee_status"`
+	Completed_at    string `json:"completed_at"`
+	Due_on          string `json:"due_on"`
+	Tags            []Base `json:"tags"`
+	Workspace       Base   `json:"workspace"`
+	Parent          Base   `json:"parent"`
+	Projects        []Base `json:"projects"`
+	Folloers        []Base `json:"followers"`
 }
 
 type Story_t struct {
@@ -45,6 +46,14 @@ type ByDue []Task_t
 func (a ByDue) Len() int           { return len(a) }
 func (a ByDue) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByDue) Less(i, j int) bool { return a[i].Due_on < a[j].Due_on }
+
+// GetTaskId returns the task ID, preferring Gid (string) over Id (int)
+func (t Task_t) GetTaskId() string {
+	if t.Gid != "" {
+		return t.Gid
+	}
+	return strconv.Itoa(t.Id)
+}
 
 func Tasks(params url.Values, withCompleted bool) []Task_t {
 	params.Add("workspace", strconv.Itoa(config.Load().Workspace))
@@ -111,13 +120,13 @@ func FindTaskId(index string, autoFirst bool) string {
 		ind, parseErr := strconv.Atoi(index)
 		utils.Check(parseErr)
 		task := Tasks(url.Values{}, false)[ind]
-		id = strconv.Itoa(task.Id)
+		id = task.GetTaskId()
 	} else {
 		lines := regexp.MustCompile("\n").Split(string(txt), -1)
 		for i, line := range lines {
 			if index == strconv.Itoa(i) {
 				line = regexp.MustCompile("^[0-9]*:").ReplaceAllString(line, "") // remove index
-				id = regexp.MustCompile("^[0-9]*").FindString(line)
+				id = regexp.MustCompile("^[^:]*").FindString(line)
 			}
 		}
 	}
