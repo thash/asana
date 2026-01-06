@@ -14,23 +14,31 @@ import (
 	"github.com/thash/asana/utils"
 )
 
+type CustomField_t struct {
+	Gid          string `json:"gid"`
+	Name         string `json:"name"`
+	DisplayValue string `json:"display_value"`
+	Type         string `json:"type"`
+}
+
 type Task_t struct {
-	Id              int    `json:"id"`
-	Gid             string `json:"gid"`
-	Created_at      string `json:"created_at"`
-	Modified_at     string `json:"modified_at"`
-	Name            string `json:"name"`
-	Notes           string `json:"notes"`
-	Assignee        Base   `json:"assignee"`
-	Completed       bool   `json:"completed"`
-	Assignee_status string `json:"assignee_status"`
-	Completed_at    string `json:"completed_at"`
-	Due_on          string `json:"due_on"`
-	Tags            []Base `json:"tags"`
-	Workspace       Base   `json:"workspace"`
-	Parent          Base   `json:"parent"`
-	Projects        []Base `json:"projects"`
-	Folloers        []Base `json:"followers"`
+	Id              int             `json:"id"`
+	Gid             string          `json:"gid"`
+	Created_at      string          `json:"created_at"`
+	Modified_at     string          `json:"modified_at"`
+	Name            string          `json:"name"`
+	Notes           string          `json:"notes"`
+	Assignee        Base            `json:"assignee"`
+	Completed       bool            `json:"completed"`
+	Assignee_status string          `json:"assignee_status"`
+	Completed_at    string          `json:"completed_at"`
+	Due_on          string          `json:"due_on"`
+	Tags            []Base          `json:"tags"`
+	CustomFields    []CustomField_t `json:"custom_fields"`
+	Workspace       Base            `json:"workspace"`
+	Parent          Base            `json:"parent"`
+	Projects        []Base          `json:"projects"`
+	Folloers        []Base          `json:"followers"`
 }
 
 type Story_t struct {

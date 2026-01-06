@@ -14,6 +14,7 @@ func Task(c *cli.Context) {
 	fmt.Printf("[ %s ] %s\n", t.Due_on, t.Name)
 
 	showTags(t.Tags)
+	showCustomFields(t.CustomFields)
 
 	fmt.Printf("\n%s\n", t.Notes)
 
@@ -35,5 +36,16 @@ func showTags(tags []api.Base) {
 			}
 		}
 		println("")
+	}
+}
+
+func showCustomFields(fields []api.CustomField_t) {
+	if len(fields) > 0 {
+		fmt.Println("\n  Custom Fields:")
+		for _, field := range fields {
+			if field.DisplayValue != "" {
+				fmt.Printf("    %s: %s\n", field.Name, field.DisplayValue)
+			}
+		}
 	}
 }
