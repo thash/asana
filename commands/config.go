@@ -34,12 +34,12 @@ func Config(c *cli.Context) {
 	if len(ws) > 1 {
 		fmt.Println("\n" + strconv.Itoa(len(ws)) + " workspaces found.")
 		for i, w := range ws {
-			fmt.Printf("[%d] %16d %s\n", i, w.Id, w.Name)
+			fmt.Printf("[%d] %s %s\n", i, w.Gid, w.Name)
 		}
 		index = utils.EndlessSelect(len(ws)-1, index)
 	}
 	token := config.Load().Personal_access_token
 	f, _ := os.Create(utils.Home() + "/.asana.yml")
 	f.WriteString("personal_access_token: " + token + "\n")
-	f.WriteString("workspace: " + strconv.Itoa(ws[index].Id) + "\n")
+	f.WriteString("workspace: " + ws[index].Gid + "\n")
 }

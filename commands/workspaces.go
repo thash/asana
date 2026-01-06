@@ -9,6 +9,6 @@ import (
 
 func Workspaces(c *cli.Context) {
 	for _, w := range api.Me().Workspaces {
-		fmt.Printf("%16d %s\n", w.Id, w.Name)
+		fmt.Printf("%s %s\n", w.Gid, w.Name)
 	}
 }

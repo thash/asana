@@ -32,7 +32,6 @@ type Attachment_t struct {
 }
 
 type Task_t struct {
-	Id              int             `json:"id"`
 	Gid             string          `json:"gid"`
 	Created_at      string          `json:"created_at"`
 	Modified_at     string          `json:"modified_at"`
@@ -52,7 +51,7 @@ type Task_t struct {
 }
 
 type Story_t struct {
-	Id         int
+	Gid        string
 	Text       string
 	Type       string
 	Created_at string
@@ -64,14 +63,6 @@ type ByDue []Task_t
 func (a ByDue) Len() int           { return len(a) }
 func (a ByDue) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByDue) Less(i, j int) bool { return a[i].Due_on < a[j].Due_on }
-
-// GetTaskId returns the task ID, preferring Gid (string) over Id (int)
-func (t Task_t) GetTaskId() string {
-	if t.Gid != "" {
-		return t.Gid
-	}
-	return strconv.Itoa(t.Id)
-}
 
 func Tasks(params url.Values, withCompleted bool) []Task_t {
 	params.Add("workspace", strconv.Itoa(config.Load().Workspace))
@@ -152,7 +143,7 @@ func FindTaskId(index string, autoFirst bool) string {
 		ind, parseErr := strconv.Atoi(index)
 		utils.Check(parseErr)
 		task := Tasks(url.Values{}, false)[ind]
-		id = task.GetTaskId()
+		id = task.Gid
 	} else {
 		lines := regexp.MustCompile("\n").Split(string(txt), -1)
 		for i, line := range lines {

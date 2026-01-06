@@ -7,11 +7,11 @@ import (
 )
 
 type Me_t struct {
-	Id         int
-	Name       string
-	Email      string
-	Workspaces []Base
-	Photo      map[string]string
+	Gid        string            `json:"gid"`
+	Name       string            `json:"name"`
+	Email      string            `json:"email"`
+	Workspaces []Base            `json:"workspaces"`
+	Photo      map[string]string `json:"photo"`
 }
 
 func Me() Me_t {
