@@ -56,7 +56,7 @@ func cache(tasks []api.Task_t) {
 	defer f.Close()
 	for i, t := range tasks {
 		f.WriteString(strconv.Itoa(i) + ":")
-		f.WriteString(t.GetTaskId() + ":")
+		f.WriteString(t.Gid + ":")
 		f.WriteString(t.Due_on + ":")
 		f.WriteString(t.Name + "\n")
 	}

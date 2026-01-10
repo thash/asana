@@ -19,7 +19,6 @@ const (
 )
 
 type Base struct {
-	Id   int    `json:"id"`
 	Gid  string `json:"gid"`
 	Name string `json:"name"`
 }
